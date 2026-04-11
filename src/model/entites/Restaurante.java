@@ -29,6 +29,7 @@ public class Restaurante {
         this.categoria = categoria;
     }
 
+
     // =========================== GETTERS & SETTERS ===========================
     public Integer getId() {
         return id;
@@ -94,5 +95,13 @@ public class Restaurante {
 
     public void removeProdutos(Produto produto){
         produtos.remove(produto);
+    }
+
+    public void addPedidos(Pedido pedido){
+        pedidos.add(pedido);
+    }
+
+    public void removePedidos(Pedido pedido){
+        pedidos.remove(pedido);
     }
 }

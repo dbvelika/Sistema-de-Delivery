@@ -11,19 +11,25 @@ public class Produto {
     private Double preco;
     private String categoria;
 
+    //UM PRODUTO COMPÕEM VÁRIOS PEDIDOS E PERTENCE A 1 RESTAURANTE
     private Restaurante restaurante;
-    private List<ItemPedido> itemPedidos = new ArrayList<>();
+    private List<ItemPedido> itens = new ArrayList<>();
 
+
+    // =============== MÉTODOS CONSTRUTORES ===============
     public Produto(){}
 
-    public Produto(Integer id, String nome, String descricao, Double preco, String categoria) {
+    public Produto(Integer id, String nome, String descricao, Double preco, String categoria, Restaurante restaurante) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
         this.categoria = categoria;
+        this.restaurante = restaurante;
     }
+    //=======================================================
 
+    // =========================== GETTERS & SETTERS ===========================
     public Integer getId() {
         return id;
     }
@@ -62,5 +68,27 @@ public class Produto {
 
     public void setCategoria(String categoria) {
         this.categoria = categoria;
+    }
+
+    public Restaurante getRestaurante() {
+        return restaurante;
+    }
+
+    public void setRestaurante(Restaurante restaurante) {
+        this.restaurante = restaurante;
+    }
+
+    public List<ItemPedido> getItemPedidos() {
+        return itens;
+    }
+
+    //============================ ADICIONAR E REMOVER DAS LISTAS ============================
+
+    public void addItemPedido(ItemPedido itemPedido){
+        itens.add(itemPedido);
+    }
+
+    public void removeItemPedido(ItemPedido itemPedido){
+        itens.remove(itemPedido);
     }
 }

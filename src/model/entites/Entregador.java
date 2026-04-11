@@ -3,10 +3,15 @@ package model.entites;
 import model.enums.StatusEntregador;
 import model.enums.TipoVeiculo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Entregador extends Pessoa {
     private TipoVeiculo veiculo;
     private StatusEntregador status;
 
+    // Um entregador entrega vários pedidos
+    List<Pedido> pedidos = new ArrayList<>();
 
     // ========== MÉTODOS CONSTRUTORES ==========
     public Entregador() {}
@@ -38,5 +43,18 @@ public class Entregador extends Pessoa {
 
     public void setStatus(StatusEntregador status) {
         this.status = status;
+    }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    // ============================= ADICIONAR E REMOVER DA LISTA =============================
+    public void addPedidos(Pedido pedido){
+        pedidos.add(pedido);
+    }
+
+    public void removePedidos(Pedido pedido){
+        pedidos.remove(pedido);
     }
 }
