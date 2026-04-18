@@ -18,7 +18,7 @@ public class Program {
             opcao = sc. nextInt();
 
             switch (opcao){
-                case 1: MenuRestaurantes.menuRestaurantes(); break;
+                case 1: MenuRestaurantes.menuRestaurantes(sc); break;
                 case 2: MenuProdutos.menuProdutos(); break;
                 case 3: MenuClientes.menuClientes(); break;
                 case 4: MenuEntregadores.menuEntregadores(); break;
