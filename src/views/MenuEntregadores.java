@@ -1,4 +1,4 @@
-package model.views;
+package views;
 
 public class MenuEntregadores extends Menu{
 

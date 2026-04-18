@@ -1,6 +1,6 @@
 package application;
 
-import model.views.*;
+import views.*;
 
 import java.util.Locale;
 import java.util.Scanner;
