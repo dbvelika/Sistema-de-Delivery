@@ -7,8 +7,8 @@ public class Restaurante {
     private Integer id;
     private String nome;
     private String endereco;
-    private Integer cnpj;
-    private Integer telefone;
+    private String cnpj;
+    private String telefone;
     private String categoria;
 
 
@@ -20,7 +20,7 @@ public class Restaurante {
     // =============== MÉTODOS CONSTRUTORES ===============
     public Restaurante(){}
 
-    public Restaurante(Integer id, String nome, String endereco, Integer cnpj, Integer telefone, String categoria) {
+    public Restaurante(Integer id, String nome, String endereco, String cnpj, String telefone, String categoria) {
         this.id = id;
         this.nome = nome;
         this.endereco = endereco;
@@ -55,19 +55,19 @@ public class Restaurante {
         this.endereco = endereco;
     }
 
-    public Integer getCnpj() {
+    public String getCnpj() {
         return cnpj;
     }
 
-    public void setCnpj(Integer cnpj) {
+    public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
     }
 
-    public Integer getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(Integer telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 
@@ -87,6 +87,15 @@ public class Restaurante {
         return pedidos;
     }
     //===========================================================================
+
+    public String toString(){
+        return "ID: "+ id
+                +" \nRestaurante: " + nome
+                + " - Categoria: " + categoria
+                +"\nEndereço: " + endereco
+                +"\nCNPJ: " + cnpj
+                + "\nTelefone: " + telefone;
+    }
 
     //============ ADICIONAR E REMOVER DAS LISTAS ============
     public void addProdutos(Produto produto){

@@ -1,5 +1,6 @@
 package application;
 
+import service.GerenciadorRestaurante;
 import views.*;
 
 import java.util.Locale;
@@ -12,13 +13,16 @@ public class Program {
         Locale.setDefault(Locale.US);
         Scanner sc = new Scanner(System.in);
 
+        GerenciadorRestaurante gerRest = new GerenciadorRestaurante();
+        MenuRestaurantes menuRest = new MenuRestaurantes();
+
         int opcao = 0;
         do{
             Menu.menuInicial();
             opcao = sc. nextInt();
 
             switch (opcao){
-                case 1: MenuRestaurantes.menuRestaurantes(sc); break;
+                case 1: menuRest.menuRestaurantes(sc, gerRest); break;
                 case 2: MenuProdutos.menuProdutos(); break;
                 case 3: MenuClientes.menuClientes(); break;
                 case 4: MenuEntregadores.menuEntregadores(); break;

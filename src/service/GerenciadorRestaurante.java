@@ -7,9 +7,12 @@ import java.util.List;
 
 public class GerenciadorRestaurante {
 
+    private Integer proximoId = 1;
     List<Restaurante> restaurantes = new ArrayList<>();
 
     public void cadastrar(Restaurante restaurante){
+        restaurante.setId(proximoId);
+        proximoId++;
         restaurantes.add(restaurante);
     }
 
@@ -21,10 +24,8 @@ public class GerenciadorRestaurante {
         restaurantes.remove(restaurante);
     }
 
-    public void atualizar(int id,String nome, String endereco, Integer cnpj, Integer telefone, String categoria, int aws){
-    }
 
-    public Restaurante buscar(int id){
+    public Restaurante buscarPorID(int id){
         for(Restaurante r : restaurantes){
             if(r.getId() == id){
                 return r;
