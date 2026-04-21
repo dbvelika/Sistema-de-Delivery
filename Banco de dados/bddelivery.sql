@@ -1,4 +1,7 @@
--- TABELA: Cliente
+-- CRIAÇÃO DO BANCO
+CREATE database bddelivery;
+
+-- TABELA: cliente
 
 CREATE TABLE cliente (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -8,7 +11,7 @@ CREATE TABLE cliente (
     email VARCHAR(100)
 );
 
--- TABELA: Endereco
+-- TABELA: endereco
 
 CREATE TABLE endereco (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -23,7 +26,7 @@ ALTER TABLE endereco
 ADD COLUMN cliente_id INT,
 ADD FOREIGN KEY (cliente_id) REFERENCES cliente(id);
 
--- TABELA: Restaurante
+-- TABELA: restaurante
 
 CREATE TABLE restaurante (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -34,7 +37,7 @@ CREATE TABLE restaurante (
     categoria VARCHAR(50)
 );
 
--- TABELA: Produto
+-- TABELA: produto
 
 CREATE TABLE produto (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -46,7 +49,7 @@ CREATE TABLE produto (
     FOREIGN KEY (restaurante_id) REFERENCES restaurante(id)
 );
 
--- TABELA: Entregador
+-- TABELA: entregador
 
 CREATE TABLE entregador (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -57,7 +60,7 @@ CREATE TABLE entregador (
     status VARCHAR(20)
 );
 
--- TABELA: Pedido
+-- TABELA: pedido
 
 CREATE TABLE pedido (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -79,7 +82,7 @@ CREATE TABLE pedido (
     
 );
 
--- TABELA: ItemPedido
+-- TABELA: itemPedido
 
 CREATE TABLE item_pedido (
     id INT PRIMARY KEY AUTO_INCREMENT,
