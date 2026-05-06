@@ -1,10 +1,12 @@
 -- CRIAÇÃO DO BANCO
-CREATE database bddelivery;
+CREATE DATABASE bddelivery;
+
+-- Conectar ao banco antes de rodar o restante
+
 
 -- TABELA: cliente
-
 CREATE TABLE cliente (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     cpf VARCHAR(11) UNIQUE NOT NULL,
     telefone VARCHAR(20),
@@ -12,24 +14,19 @@ CREATE TABLE cliente (
 );
 
 -- TABELA: endereco
-
 CREATE TABLE endereco (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id SERIAL PRIMARY KEY,
     numero VARCHAR(10),
     rua VARCHAR(100),
     cidade VARCHAR(100),
-    cep VARCHAR(10)
+    cep VARCHAR(10),
+    cliente_id INT,
+    FOREIGN KEY (cliente_id) REFERENCES cliente(id)
 );
 
--- Cliente possui Endereco (1:N)
-ALTER TABLE endereco
-ADD COLUMN cliente_id INT,
-ADD FOREIGN KEY (cliente_id) REFERENCES cliente(id);
-
 -- TABELA: restaurante
-
 CREATE TABLE restaurante (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     endereco VARCHAR(150),
     cnpj VARCHAR(14) UNIQUE,
@@ -38,9 +35,8 @@ CREATE TABLE restaurante (
 );
 
 -- TABELA: produto
-
 CREATE TABLE produto (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     descricao TEXT,
     preco DECIMAL(10,2) NOT NULL,
@@ -50,9 +46,8 @@ CREATE TABLE produto (
 );
 
 -- TABELA: entregador
-
 CREATE TABLE entregador (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id SERIAL PRIMARY KEY,
     nome VARCHAR(100),
     cpf VARCHAR(11) UNIQUE,
     telefone VARCHAR(20),
@@ -61,9 +56,8 @@ CREATE TABLE entregador (
 );
 
 -- TABELA: pedido
-
 CREATE TABLE pedido (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id SERIAL PRIMARY KEY,
     status VARCHAR(50),
     subtotal DECIMAL(10,2) NOT NULL DEFAULT 0,
     desconto DECIMAL(10,2),
@@ -79,13 +73,11 @@ CREATE TABLE pedido (
     FOREIGN KEY (endereco_id) REFERENCES endereco(id),
     FOREIGN KEY (entregador_id) REFERENCES entregador(id),
     FOREIGN KEY (restaurante_id) REFERENCES restaurante(id)
-    
 );
 
--- TABELA: itemPedido
-
+-- TABELA: item_pedido
 CREATE TABLE item_pedido (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id SERIAL PRIMARY KEY,
     quantidade INT NOT NULL,
     preco_unitario DECIMAL(10,2) NOT NULL,
 
