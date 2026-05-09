@@ -7,7 +7,7 @@ public class Conexao {
             Connection conn = DriverManager.getConnection(
                 "jdbc:postgresql://localhost:5432/bddelivery",
                 "postgres",   // usuário padrão do PostgreSQL
-                "senha"       // sua senha
+                "root"       // sua senha
             );
 
             System.out.println("Conectado com sucesso!");
