@@ -5,7 +5,7 @@ import model.enums.StatusPedido;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Pedido {
+public final class Pedido {
 
     private Integer id;
     private StatusPedido status;

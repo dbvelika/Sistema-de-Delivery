@@ -1,6 +1,6 @@
 package model.entites;
 
-public class ItemPedido {
+public final class ItemPedido {
     private Integer quantidade;
     private Double precoUnitario;
 

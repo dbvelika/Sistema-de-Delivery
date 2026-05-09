@@ -7,8 +7,6 @@ import java.util.Scanner;
 
 public class MenuRestaurantes extends Menu{
 
-    Restaurante restaurante = new Restaurante();
-
     public void menuRestaurantes(Scanner sc,GerenciadorRestaurante service){
         int opcao = 0;
         do {
@@ -59,11 +57,12 @@ public class MenuRestaurantes extends Menu{
 
     public void menuAtualizar(Scanner sc, GerenciadorRestaurante service){
         System.out.println("===== ATUALIZAR RESTAURANTE =====");
+        service.listar();
         System.out.print("Informe o id do restaurante que deseja alterar: ");
         Integer id = sc.nextInt();
         sc.nextLine();
 
-         Restaurante r = service.buscarPorID(id);
+        Restaurante r = service.buscarPorID(id);
 
         if(r != null) {
             System.out.println("===== DADOS ATUAIS =====");
@@ -78,7 +77,7 @@ public class MenuRestaurantes extends Menu{
                 System.out.println("4 - Telefone");
                 System.out.println("5 - Categoria");
                 System.out.println("0 - Voltar");
-                System.out.println("Escolha uma opção: ");
+                System.out.println("Escolha uma opção para alterar: ");
                 aws = sc.nextInt();
 
                 sc.nextLine();
@@ -136,6 +135,7 @@ public class MenuRestaurantes extends Menu{
 
     public void menuExcluir(Scanner sc, GerenciadorRestaurante service){
         System.out.println("===== REMOVER RESTAURANTE =====");
+        service.listar();
         System.out.print("Informe o ID do restaurante que deseja remover: ");
         int id = sc.nextInt();
         Restaurante r = service.buscarPorID(id);

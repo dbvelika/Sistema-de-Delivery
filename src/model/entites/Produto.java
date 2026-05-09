@@ -3,7 +3,7 @@ package model.entites;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Produto {
+public final class Produto {
 
     private Integer id;
     private String nome;

@@ -3,7 +3,7 @@ package model.entites;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Restaurante {
+public final class Restaurante {
     private Integer id;
     private String nome;
     private String endereco;

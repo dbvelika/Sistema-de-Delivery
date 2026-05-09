@@ -1,6 +1,6 @@
 package model.entites;
 
-public class Endereco {
+public final class Endereco {
 
     private Integer id;
     private Integer numero;

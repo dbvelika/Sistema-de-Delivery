@@ -3,7 +3,7 @@ package model.entites;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cliente extends Pessoa {
+public final class Cliente extends Pessoa {
 
     private String email;
 

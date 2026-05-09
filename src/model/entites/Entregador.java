@@ -6,7 +6,7 @@ import model.enums.TipoVeiculo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Entregador extends Pessoa {
+public final class Entregador extends Pessoa {
     private TipoVeiculo veiculo;
     private StatusEntregador status;
 

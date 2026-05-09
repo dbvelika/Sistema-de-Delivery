@@ -20,8 +20,9 @@ public abstract class Pessoa {
         return id;
     }
 
-    public void setId(Integer id) {
+    public Integer setId(Integer id) {
         this.id = id;
+        return id;
     }
 
     public String getNome() {

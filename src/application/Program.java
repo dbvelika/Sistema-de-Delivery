@@ -1,5 +1,8 @@
 package application;
 
+import service.GerenciadorClientes;
+import service.GerenciadorEntregadores;
+import service.GerenciadorProdutos;
 import service.GerenciadorRestaurante;
 import views.*;
 
@@ -14,7 +17,15 @@ public class Program {
         Scanner sc = new Scanner(System.in);
 
         GerenciadorRestaurante gerRest = new GerenciadorRestaurante();
+        GerenciadorProdutos gerProd = new GerenciadorProdutos();
+        GerenciadorEntregadores gerEntr = new GerenciadorEntregadores();
+        GerenciadorClientes gerCli = new GerenciadorClientes();
+
+
         MenuRestaurantes menuRest = new MenuRestaurantes();
+        MenuProdutos menuProd = new MenuProdutos();
+        MenuEntregadores menuEntr = new MenuEntregadores();
+        MenuClientes menuCli = new MenuClientes();
 
         int opcao = 0;
         do{
@@ -23,9 +34,9 @@ public class Program {
 
             switch (opcao){
                 case 1: menuRest.menuRestaurantes(sc, gerRest); break;
-                case 2: MenuProdutos.menuProdutos(); break;
-                case 3: MenuClientes.menuClientes(); break;
-                case 4: MenuEntregadores.menuEntregadores(); break;
+                case 2: menuProd.menuProdutos(sc, gerProd); break;
+                case 3: menuCli.menuClientes(sc, gerCli); break;
+                case 4: menuEntr.menuEntregadores(sc, gerEntr);
                 case 5: MenuPedidos.menuPedidos(); break;
                 case 6: System.out.println("====== RELATÓRIO ======"); break;
                 case 0: System.out.println("Encerrando..."); break;
