@@ -1,9 +1,3 @@
--- CRIAÇÃO DO BANCO
-CREATE DATABASE bddelivery;
-
--- Conectar ao banco antes de rodar o restante
-
-
 -- TABELA: cliente
 CREATE TABLE cliente (
     id SERIAL PRIMARY KEY,
