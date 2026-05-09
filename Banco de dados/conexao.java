@@ -5,9 +5,9 @@ public class Conexao {
     public static void main(String[] args) {
         try {
             Connection conn = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/bddelivery",
-                "root",
-                "senha"
+                "jdbc:postgresql://localhost:5432/bddelivery",
+                "postgres",   // usuário padrão do PostgreSQL
+                "senha"       // sua senha
             );
 
             System.out.println("Conectado com sucesso!");
