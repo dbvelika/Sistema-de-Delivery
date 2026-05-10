@@ -10,10 +10,9 @@ public final class ItemPedido {
     public ItemPedido(){}
 
     // ========== MÉTODOS CONSTRUTORES ==========
-    public ItemPedido(Integer quantidade, Double precoUnitario, Pedido pedido, Produto produto) {
+    public ItemPedido(Produto produto, Integer quantidade) {
         this.quantidade = quantidade;
-        this.precoUnitario = precoUnitario;
-        this.pedido = pedido;
+        this.precoUnitario = produto.getPreco();
         this.produto = produto;
     }
 

@@ -39,8 +39,4 @@ public class GerenciadorEntregadores implements Crud<Entregador>{
         System.out.println("Entregadores disponíveis: ");
         return entregadores;
     }
-
-    public void atribuirPedido(Pedido pedido){
-
-    }
 }

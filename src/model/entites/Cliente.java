@@ -6,6 +6,7 @@ import java.util.List;
 public final class Cliente extends Pessoa {
 
     private String email;
+    private Endereco endereco;
 
     //Cliente possui vários endereços e pedidos
     private List<Pedido> pedidos = new ArrayList<>();
@@ -14,9 +15,10 @@ public final class Cliente extends Pessoa {
     // =============== MÉTODOS CONSTRUTORES ===============
     public Cliente(){}
 
-    public Cliente(Integer id, String nome, String cpf, String telefone, String email) {
+    public Cliente(Integer id, String nome, String cpf, String telefone, String email, Endereco endereco) {
         super(id, nome, cpf, telefone);
         this.email = email;
+        this.endereco = endereco;
     }
     //======================================================
 
@@ -34,7 +36,7 @@ public final class Cliente extends Pessoa {
         return pedidos;
     }
 
-    public List<Endereco> getEnderco() {
+    public List<Endereco> getEnderecos() {
         return enderecos;
     }
     //===========================================================================

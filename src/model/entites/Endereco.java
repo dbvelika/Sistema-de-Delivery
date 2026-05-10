@@ -15,14 +15,12 @@ public final class Endereco {
     // =============== MÉTODOS CONSTRUTORES ===============
     public Endereco(){}
 
-    public Endereco(Integer id, Integer numero, String rua, String cidade, Integer cep, Cliente cliente, Restaurante restaurante) {
+    public Endereco(Integer id, Integer numero, String rua, String cidade, Integer cep) {
         this.id = id;
         this.numero = numero;
         this.rua = rua;
         this.cidade = cidade;
         this.cep = cep;
-        this.cliente = cliente;
-        this.restaurante = restaurante;
     }
     //======================================================
 
@@ -82,5 +80,22 @@ public final class Endereco {
 
     public void setRestaurante(Restaurante restaurante) {
         this.restaurante = restaurante;
+    }
+
+    public String toString(){
+        return "ID: "+ getId()
+                +"\nRua: "+ getRua()
+                +", Nº"+ getNumero()
+                +", "+getCidade()
+                +" - "+getCep();
+    }
+
+    public Endereco buscarPorID(int id) {
+        for(Endereco e : cliente.getEnderecos()){
+            if(e.getId() != null){
+                return e;
+            }
+        }
+        return null;
     }
 }
