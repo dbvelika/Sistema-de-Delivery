@@ -1,3 +1,12 @@
+-- TABELA: cadastro
+
+CREATE TABLE cadastro (
+
+	id SERIAL PRIMARY KEY,
+	usuario VARCHAR(12) NOT NULL,
+	senha VARCHAR(10) NOT NULL
+);
+
 -- TABELA: cliente
 CREATE TABLE cliente (
     id SERIAL PRIMARY KEY,
