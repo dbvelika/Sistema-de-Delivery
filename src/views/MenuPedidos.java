@@ -27,7 +27,7 @@ public class MenuPedidos extends Menu{
 
             switch(opcao){
                 case 1: menuCadastro(sc, service, gerCli, gerProd, gerRest); break;
-                case 2: menuAtualizar(sc, service); break;
+                case 2: menuAtualizar(sc, service, gerProd); break;
                 case 3: menuExcluir(sc, service); break;
                 case 4: menuAtribuirEntregador(sc, service, gerEntregador);
                 case 6: menuListar(service);break;
@@ -245,19 +245,22 @@ public class MenuPedidos extends Menu{
         switch(opcao){
 
             case 1:
-                pedido.atualizarStatus(StatusPedido.EM_PREPARO);
-                atualizado = true;
+                if (pedido.getStatus() != StatusPedido.ENTREGUE) {
+                    pedido.atualizarStatus(StatusPedido.EM_PREPARO);
+                    atualizado = true;
+                }
                 break;
 
             case 2:
-                pedido.atualizarStatus(
-                        StatusPedido.SAIU_PARA_ENTREGA);
+                if (pedido.getStatus() != StatusPedido.ENTREGUE) {
+                    pedido.atualizarStatus(StatusPedido.SAIU_PARA_ENTREGA);
+                }
                 break;
 
             case 3:
                 if(pedido.getStatus() == StatusPedido.SAIU_PARA_ENTREGA){
-                pedido.atualizarStatus(StatusPedido.ENTREGUE);
-                atualizado = true;
+                    pedido.atualizarStatus(StatusPedido.ENTREGUE);
+                    atualizado = true;
                 }
                 else{
                     System.out.println("Não foi possível entregar. Status atual: "+ pedido.getStatus());
@@ -282,5 +285,212 @@ public class MenuPedidos extends Menu{
         if (atualizado) {
             System.out.println("Status atualizado com sucesso.");
         }
+    }
+
+    public void menuExcluir(
+            Scanner sc,
+            GerenciadorPedidos service){
+
+        System.out.println("===== PEDIDOS =====");
+
+        for(Pedido p : service.listar()){
+            System.out.println(p);
+        }
+
+        System.out.print("Informe o ID do pedido: ");
+        Integer id = sc.nextInt();
+
+        Pedido pedido = service.buscarPorID(id);
+
+        if(pedido == null){
+            System.out.println("Pedido não encontrado.");
+            return;
+        }
+
+        if(pedido.getStatus() == StatusPedido.ENTREGUE
+                || pedido.getStatus() ==
+                StatusPedido.SAIU_PARA_ENTREGA){
+
+            System.out.println("Não é possível excluir esse pedido.");
+
+            return;
+        }
+
+        System.out.print("Deseja realmente excluir? (S/N): ");
+
+        char confirmacao = sc.next().charAt(0);
+
+        if(confirmacao == 's' || confirmacao == 'S'){
+            service.remover(pedido);
+            System.out.println("Pedido removido com sucesso.");
+        }
+    }
+
+    public void menuAtualizar(
+            Scanner sc,
+            GerenciadorPedidos gerPedido,
+            GerenciadorProdutos gerProd){
+
+        System.out.println("===== PEDIDOS =====");
+
+        for(Pedido p : gerPedido.listar()){
+            System.out.println(p);
+        }
+
+        System.out.print("Informe o ID do pedido: ");
+        Integer idPedido = sc.nextInt();
+        sc.nextLine();
+
+        Pedido pedido = gerPedido.buscarPorID(idPedido);
+
+        if(pedido == null){
+            System.out.println("Pedido não encontrado.");
+            return;
+        }
+
+        // VALIDAÇÃO DE STATUS
+        if(pedido.getStatus() == StatusPedido.ENTREGUE
+                || pedido.getStatus() == StatusPedido.CANCELADO){
+
+            System.out.println("Não é possível alterar esse pedido.");
+            return;
+        }
+
+        int opcao = 0;
+
+        do {
+
+            System.out.println();
+            System.out.println("===== ATUALIZAR PEDIDO =====");
+            System.out.println("1 - Adicionar item");
+            System.out.println("2 - Remover item");
+            System.out.println("3 - Alterar quantidade");
+            System.out.println("0 - Voltar");
+
+            opcao = sc.nextInt();
+            sc.nextLine();
+
+            switch(opcao){
+
+                // ==========================
+                // ADICIONAR ITEM
+                // ==========================
+                case 1:
+
+                    System.out.println("===== PRODUTOS =====");
+
+                    for(Produto p : pedido.getRestaurante().getProdutos()){
+                        System.out.println(p);
+                    }
+
+                    System.out.print("Informe o ID do produto: ");
+                    Integer idProduto = sc.nextInt();
+                    sc.nextLine();
+
+                    Produto produto =
+                            gerProd.buscarPorID(idProduto);
+
+                    if(produto == null){
+                        System.out.println("Produto não encontrado.");
+                        break;
+                    }
+
+                    // VALIDA SE PRODUTO PERTENCE AO RESTAURANTE
+                    if(!pedido.getRestaurante().getProdutos().contains(produto)){
+                        System.out.println("Produto não pertence ao restaurante.");
+                        break;
+                    }
+
+                    System.out.print("Informe a quantidade: ");
+                    Integer quantidade = sc.nextInt();
+                    sc.nextLine();
+
+                    ItemPedido novoItem = new ItemPedido(produto, quantidade);
+                    pedido.adicionarItem(novoItem);
+                    pedido.calcularTotal();
+
+                    System.out.println("Item adicionado.");
+                    break;
+
+                // ==========================
+                // REMOVER ITEM
+                // ==========================
+                case 2:
+                    System.out.println("===== ITENS =====");
+
+                    for(ItemPedido item : pedido.getItens()){
+                        System.out.println(item);
+                    }
+
+                    System.out.print("Informe o ID do produto que deseja remover: ");
+
+                    Integer idRemover = sc.nextInt();
+                    sc.nextLine();
+
+                    ItemPedido itemRemover = null;
+
+                    for(ItemPedido item : pedido.getItens()){
+
+                        if(item.getProduto().getId().equals(idRemover)){
+                            itemRemover = item;
+                            break;
+                        }
+                    }
+                    if(itemRemover != null){
+                        pedido.removerItem(itemRemover);
+                        pedido.calcularTotal();
+                        System.out.println("Item removido.");
+                    }
+                    else{
+                        System.out.println("Item não encontrado.");
+                    }
+                    break;
+
+                // ==========================
+                // ALTERAR QUANTIDADE
+                // ==========================
+                case 3:
+
+                    System.out.println("===== ITENS =====");
+
+                    for(ItemPedido item : pedido.getItens()){
+                        System.out.println(item);
+                    }
+
+                    System.out.print("Informe o ID do produto: ");
+                    Integer idAlterar = sc.nextInt();
+                    sc.nextLine();
+
+                    ItemPedido itemAlterar = null;
+
+                    for(ItemPedido item : pedido.getItens()){
+
+                        if(item.getProduto().getId().equals(idAlterar)){
+                            itemAlterar = item;
+                            break;
+                        }
+                    }
+
+                    if(itemAlterar != null){
+                        System.out.print("Informe a nova quantidade: ");
+                        Integer novaQuantidade = sc.nextInt();
+                        sc.nextLine();
+
+                        itemAlterar.setQuantidade(novaQuantidade);
+                        pedido.calcularTotal();
+
+                        System.out.println("Quantidade atualizada.");
+                    }
+                    else{
+                        System.out.println("Item não encontrado.");
+                    }
+                    break;
+
+                case 0: break;
+
+                default: System.out.println("Opção inválida.");
+            }
+
+        } while(opcao != 0);
     }
 }
