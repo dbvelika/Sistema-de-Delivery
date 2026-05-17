@@ -10,7 +10,12 @@ import java.util.Scanner;
 public class MenuPedidos extends Menu{
 
 
-    public void menuPedidos(Scanner sc, GerenciadorPedidos service, GerenciadorClientes gerCli, GerenciadorProdutos gerProd, GerenciadorRestaurante gerRest, Restaurante restaurante, GerenciadorEntregadores gerEntregador){
+    public void menuPedidos(Scanner sc,
+                            GerenciadorPedidos service,
+                            GerenciadorClientes gerCli,
+                            GerenciadorProdutos gerProd,
+                            GerenciadorRestaurante gerRest,
+                            GerenciadorEntregadores gerEntregador){
         int opcao = 0;
         do {
             System.out.println("========== GERENCIAR PEDIDOS ==========");
