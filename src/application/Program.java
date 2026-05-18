@@ -1,5 +1,6 @@
 package application;
 
+import dao.ProdutoDAO;
 import dao.RestauranteDAO;
 import service.*;
 import views.*;
@@ -23,9 +24,10 @@ public class Program {
         GerenciadorClientes gerCli = new GerenciadorClientes();
         GerenciadorPedidos gerPedidos = new GerenciadorPedidos();
 
+        RestauranteDAO restauranteDAO = new RestauranteDAO();
+        ProdutoDAO produtoDAO = new ProdutoDAO();
 
         MenuRestaurantes menuRest = new MenuRestaurantes();
-        RestauranteDAO restauranteDAO = new RestauranteDAO();
         MenuProdutos menuProd = new MenuProdutos();
         MenuEntregadores menuEntr = new MenuEntregadores();
         MenuClientes menuCli = new MenuClientes();
@@ -43,8 +45,8 @@ public class Program {
             opcao = sc. nextInt();
 
             switch (opcao){
-                case 1: menuRest.menuRestaurantes(sc, gerRest, restauranteDAO); break;
-                case 2: menuProd.menuProdutos(sc, gerProd); break;
+                case 1: menuRest.menuRestaurantes(sc, restauranteDAO); break;
+                case 2: menuProd.menuProdutos(sc, produtoDAO, restauranteDAO); break;
                 case 3: menuCli.menuClientes(sc, gerCli); break;
                 case 4: menuEntr.menuEntregadores(sc, gerEntr);
                 case 5: menuPedidos.menuPedidos(sc, gerPedidos, gerCli, gerProd, gerRest, gerEntr); break;

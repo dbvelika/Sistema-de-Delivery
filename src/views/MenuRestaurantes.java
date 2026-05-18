@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class MenuRestaurantes extends Menu{
 
-    public void menuRestaurantes(Scanner sc, GerenciadorRestaurante service, RestauranteDAO daoService){
+    public void menuRestaurantes(Scanner sc, RestauranteDAO daoService){
         int opcao = 0;
         do {
             System.out.println("========== GERENCIAR RESTAURANTES ==========");
