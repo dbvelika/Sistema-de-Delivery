@@ -24,17 +24,17 @@ public class MenuRestaurantes extends Menu{
             sc.nextLine();
 
             switch(opcao){
-                case 1: menuCadastro(sc, service, daoService); break;
-                case 2: menuAtualizar(sc, service, daoService); break;
-                case 3: menuExcluir(sc, service); break;
-                case 4: menuListar(sc, service); break;
+                case 1: menuCadastro(sc, daoService); break;
+                case 2: menuAtualizar(sc, daoService); break;
+                case 3: menuExcluir(sc, daoService); break;
+                case 4: menuListar(sc, daoService); break;
                 case 0: break;
                 default: System.out.println("Opção Inválida.");
             }
         }while (opcao != 0);
     }
 
-    public void menuCadastro(Scanner sc, GerenciadorRestaurante service, RestauranteDAO daoService){
+    public void menuCadastro(Scanner sc, RestauranteDAO daoService){
         System.out.println("===== CADASTRAR RESTAURANTE =====");
         System.out.print("Informe o nome do restaurante: ");
         String nome = sc.nextLine();
@@ -53,12 +53,11 @@ public class MenuRestaurantes extends Menu{
 
         Restaurante restaurante = new Restaurante(null ,nome, endereco, cnpj, tel, categoria);
 
-        service.cadastrar(restaurante);
         daoService.inserir(restaurante);
         System.out.println("Restaurante "+ restaurante.getNome() +" adicionado com sucesso.");
     }
 
-    public void menuAtualizar(Scanner sc, GerenciadorRestaurante service, RestauranteDAO daoService){
+    public void menuAtualizar(Scanner sc, RestauranteDAO daoService){
         System.out.println("===== ATUALIZAR RESTAURANTE =====");
         daoService.listar();
         System.out.print("Informe o id do restaurante que deseja alterar: ");
@@ -141,12 +140,12 @@ public class MenuRestaurantes extends Menu{
         }
     }
 
-    public void menuExcluir(Scanner sc, GerenciadorRestaurante service){
+    public void menuExcluir(Scanner sc, RestauranteDAO daoService){
         System.out.println("===== REMOVER RESTAURANTE =====");
-        service.listar();
+        daoService.listar();
         System.out.print("Informe o ID do restaurante que deseja remover: ");
         int id = sc.nextInt();
-        Restaurante r = service.buscarPorID(id);
+        Restaurante r = daoService.findById(id);
 
         if (r != null){
             System.out.println("Dados do restaurante: \n"+ r);
@@ -155,9 +154,8 @@ public class MenuRestaurantes extends Menu{
             char confirm = sc.next().charAt(0);
 
             if (confirm == 's'){
-                service.remover(r);
+                daoService.deleteById(id);
                 System.out.println("Restaurante excluído.");
-                menuInicial();
             } else if (confirm == 'n') {
                 System.out.println("Retornando...");
             }
@@ -167,9 +165,19 @@ public class MenuRestaurantes extends Menu{
         }
     }
 
-    public void menuListar(Scanner sc, GerenciadorRestaurante service) {
-        System.out.println("===== Lista de Restaurantes =====");
-        service.listar();
+    public void menuListar(Scanner sc, RestauranteDAO daoService) {
 
+        System.out.println("===== LISTA DE RESTAURANTES =====");
+
+        for(Restaurante r : daoService.listar()){
+
+            System.out.println("----------------------------");
+            System.out.println("ID: " + r.getId());
+            System.out.println("Nome: " + r.getNome());
+            System.out.println("Endereço: " + r.getEndereco());
+            System.out.println("CNPJ: " + r.getCnpj());
+            System.out.println("Telefone: " + r.getTelefone());
+            System.out.println("Categoria: " + r.getCategoria());
+        }
     }
 }
