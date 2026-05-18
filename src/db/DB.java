@@ -7,11 +7,13 @@ import java.sql.SQLException;
 public class DB {
 
     private static final String URL =
-            "jdbc:postgresql://localhost:5432/bddelivery";
+            "jdbc:postgresql://localhost:5432/dbdelivery";
 
-    private static final String USER = "postgres";
+    private static final String USER =
+            "postgres";
 
-    private static final String PASSWORD = "root";
+    private static final String PASSWORD =
+            "ROOT";
 
     public static Connection getConnection(){
 
@@ -23,8 +25,10 @@ public class DB {
             );
         }
         catch(SQLException e){
+
             throw new RuntimeException(
-                    "Erro ao conectar ao banco."
+                    "Erro ao conectar com o banco: "
+                            + e.getMessage()
             );
         }
     }
