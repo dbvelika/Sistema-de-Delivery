@@ -1,6 +1,5 @@
 package views;
 
-import dao.RestauranteDAO;
 import model.entites.Restaurante;
 import service.GerenciadorRestaurante;
 
@@ -8,14 +7,13 @@ import java.util.Scanner;
 
 public class MenuRestaurantes extends Menu{
 
-    public void menuRestaurantes(Scanner sc, GerenciadorRestaurante service, RestauranteDAO daoService){
+    public void menuRestaurantes(Scanner sc,GerenciadorRestaurante service){
         int opcao = 0;
         do {
             System.out.println("========== GERENCIAR RESTAURANTES ==========");
             System.out.println("1 - Inserir restaurante");
             System.out.println("2 - Atualizar restaurante");
             System.out.println("3 - Excluir restaurante");
-            System.out.println("4 - Listar Restaurantes");
             System.out.println("0 - Voltar");
 
             System.out.print("Escolha uma opção: ");
@@ -24,17 +22,16 @@ public class MenuRestaurantes extends Menu{
             sc.nextLine();
 
             switch(opcao){
-                case 1: menuCadastro(sc, service, daoService); break;
-                case 2: menuAtualizar(sc, service, daoService); break;
+                case 1: menuCadastro(sc, service); break;
+                case 2: menuAtualizar(sc, service); break;
                 case 3: menuExcluir(sc, service); break;
-                case 4: menuListar(sc, service); break;
                 case 0: break;
                 default: System.out.println("Opção Inválida.");
             }
         }while (opcao != 0);
     }
 
-    public void menuCadastro(Scanner sc, GerenciadorRestaurante service, RestauranteDAO daoService){
+    public void menuCadastro(Scanner sc, GerenciadorRestaurante service){
         System.out.println("===== CADASTRAR RESTAURANTE =====");
         System.out.print("Informe o nome do restaurante: ");
         String nome = sc.nextLine();
@@ -54,11 +51,11 @@ public class MenuRestaurantes extends Menu{
         Restaurante restaurante = new Restaurante(null ,nome, endereco, cnpj, tel, categoria);
 
         service.cadastrar(restaurante);
-        daoService.inserir(restaurante);
+
         System.out.println("Restaurante "+ restaurante.getNome() +" adicionado com sucesso.");
     }
 
-    public void menuAtualizar(Scanner sc, GerenciadorRestaurante service, RestauranteDAO daoService){
+    public void menuAtualizar(Scanner sc, GerenciadorRestaurante service){
         System.out.println("===== ATUALIZAR RESTAURANTE =====");
         service.listar();
         System.out.print("Informe o id do restaurante que deseja alterar: ");
@@ -90,7 +87,6 @@ public class MenuRestaurantes extends Menu{
                         String novoNome = sc.nextLine();
                         r.setNome(novoNome);
                         System.out.println("Nome do restaurante alterado com sucesso!");
-                        daoService.update(r);
                         System.out.println(r);
                         break;
 
@@ -99,7 +95,6 @@ public class MenuRestaurantes extends Menu{
                         String novoEndereco = sc.nextLine();
                         r.setEndereco(novoEndereco);
                         System.out.println("Endereço do restaurante alterado com sucesso!");
-                        daoService.update(r);
                         System.out.println(r);
                         break;
 
@@ -108,7 +103,6 @@ public class MenuRestaurantes extends Menu{
                         String novoCnpj = sc.nextLine();
                         r.setCnpj(novoCnpj);
                         System.out.println("CNPJ do restaurante alterado com sucesso!");
-                        daoService.update(r);
                         System.out.println(r);
                         break;
 
@@ -117,7 +111,6 @@ public class MenuRestaurantes extends Menu{
                         String novoTel = sc.nextLine();
                         r.setTelefone(novoTel);
                         System.out.println("Telefone do restaurante alterado com sucesso!");
-                        daoService.update(r);
                         System.out.println(r);
                         break;
 
@@ -126,7 +119,6 @@ public class MenuRestaurantes extends Menu{
                         String novaCateg = sc.nextLine();
                         r.setCategoria(novaCateg);
                         System.out.println("Categoria do restaurante alterado com sucesso!");
-                        daoService.update(r);
                         System.out.println(r);
                         break;
 
@@ -165,11 +157,5 @@ public class MenuRestaurantes extends Menu{
         else{
             System.out.println("Restaurante não encontrado.");
         }
-    }
-
-    public void menuListar(Scanner sc, GerenciadorRestaurante service) {
-        System.out.println("===== Lista de Restaurantes =====");
-        service.listar();
-
     }
 }
