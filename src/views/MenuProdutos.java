@@ -30,7 +30,7 @@ public class MenuProdutos extends Menu{
             switch(opcao){
                 case 1: menuCadastro(sc, daoService, restauranteDAO); break;
                 case 2: menuAtualizar(sc, daoService, restauranteDAO); break;
-                case 3: menuExcluir(sc, daoService, restauranteDAO); break;
+                case 3: menuExcluir(sc, daoService); break;
                 case 0: break;
                 default: System.out.println("Opção Inválida.");
             }
@@ -168,7 +168,7 @@ public class MenuProdutos extends Menu{
         }
     }
 
-    public void menuExcluir(Scanner sc, ProdutoDAO daoService, RestauranteDAO restauranteDAO){
+    public void menuExcluir(Scanner sc, ProdutoDAO daoService){
         System.out.println("===== REMOVER PRODUTO =====");
         daoService.listar();
         System.out.print("Informe o ID do produto que deseja remover: ");
