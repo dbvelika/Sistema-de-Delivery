@@ -25,9 +25,9 @@ public class MenuRestaurantes extends Menu{
 
             switch(opcao){
                 case 1: menuCadastro(sc, service, daoService); break;
-                case 2: menuAtualizar(sc, service); break;
+                case 2: menuAtualizar(sc, service, daoService); break;
                 case 3: menuExcluir(sc, service); break;
-                case 4: menuListar(sc, daoService); break;
+                case 4: menuListar(sc, service); break;
                 case 0: break;
                 default: System.out.println("Opção Inválida.");
             }
@@ -58,14 +58,14 @@ public class MenuRestaurantes extends Menu{
         System.out.println("Restaurante "+ restaurante.getNome() +" adicionado com sucesso.");
     }
 
-    public void menuAtualizar(Scanner sc, GerenciadorRestaurante service){
+    public void menuAtualizar(Scanner sc, GerenciadorRestaurante service, RestauranteDAO daoService){
         System.out.println("===== ATUALIZAR RESTAURANTE =====");
-        service.listar();
+        daoService.listar();
         System.out.print("Informe o id do restaurante que deseja alterar: ");
         Integer id = sc.nextInt();
         sc.nextLine();
 
-        Restaurante r = service.buscarPorID(id);
+        Restaurante r = daoService.findById(id);
 
         if(r != null) {
             System.out.println("===== DADOS ATUAIS =====");
@@ -90,6 +90,7 @@ public class MenuRestaurantes extends Menu{
                         String novoNome = sc.nextLine();
                         r.setNome(novoNome);
                         System.out.println("Nome do restaurante alterado com sucesso!");
+                        daoService.update(r);
                         System.out.println(r);
                         break;
 
@@ -98,6 +99,7 @@ public class MenuRestaurantes extends Menu{
                         String novoEndereco = sc.nextLine();
                         r.setEndereco(novoEndereco);
                         System.out.println("Endereço do restaurante alterado com sucesso!");
+                        daoService.update(r);
                         System.out.println(r);
                         break;
 
@@ -106,6 +108,7 @@ public class MenuRestaurantes extends Menu{
                         String novoCnpj = sc.nextLine();
                         r.setCnpj(novoCnpj);
                         System.out.println("CNPJ do restaurante alterado com sucesso!");
+                        daoService.update(r);
                         System.out.println(r);
                         break;
 
@@ -114,6 +117,7 @@ public class MenuRestaurantes extends Menu{
                         String novoTel = sc.nextLine();
                         r.setTelefone(novoTel);
                         System.out.println("Telefone do restaurante alterado com sucesso!");
+                        daoService.update(r);
                         System.out.println(r);
                         break;
 
@@ -122,6 +126,7 @@ public class MenuRestaurantes extends Menu{
                         String novaCateg = sc.nextLine();
                         r.setCategoria(novaCateg);
                         System.out.println("Categoria do restaurante alterado com sucesso!");
+                        daoService.update(r);
                         System.out.println(r);
                         break;
 
@@ -162,19 +167,9 @@ public class MenuRestaurantes extends Menu{
         }
     }
 
-    public void menuListar(Scanner sc, RestauranteDAO daoService) {
+    public void menuListar(Scanner sc, GerenciadorRestaurante service) {
+        System.out.println("===== Lista de Restaurantes =====");
+        service.listar();
 
-        System.out.println("===== LISTA DE RESTAURANTES =====");
-
-        for(Restaurante r : daoService.listar()){
-
-            System.out.println("----------------------------");
-            System.out.println("ID: " + r.getId());
-            System.out.println("Nome: " + r.getNome());
-            System.out.println("Endereço: " + r.getEndereco());
-            System.out.println("CNPJ: " + r.getCnpj());
-            System.out.println("Telefone: " + r.getTelefone());
-            System.out.println("Categoria: " + r.getCategoria());
-        }
     }
 }
