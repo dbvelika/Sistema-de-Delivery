@@ -35,6 +35,8 @@ public class RestauranteDAO {
             System.out.println(
                     "Erro ao inserir restaurante."
             );
+
+            e.printStackTrace();
         }
     }
 }
