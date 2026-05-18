@@ -3,9 +3,13 @@ package dao;
 import db.DB;
 import model.entites.Restaurante;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RestauranteDAO {
     public void inserir(Restaurante restaurante){
@@ -65,4 +69,43 @@ public class RestauranteDAO {
             System.out.println("Erro ao atualizar restaurante: " + e.getMessage());
         }
     }
+
+    public List<Restaurante> listar(){
+
+        List<Restaurante> lista = new ArrayList<>();
+
+        String sql = "SELECT * FROM restaurante";
+
+        try(
+                Connection conn = DB.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()
+        ){
+
+            while(rs.next()){
+
+                Restaurante restaurante = new Restaurante();
+
+                restaurante.setId(rs.getInt("id"));
+                restaurante.setNome(rs.getString("nome"));
+                restaurante.setEndereco(rs.getString("endereco"));
+                restaurante.setCnpj(rs.getString("cnpj"));
+                restaurante.setTelefone(rs.getString("telefone"));
+                restaurante.setCategoria(rs.getString("categoria"));
+
+                lista.add(restaurante);
+            }
+        }
+        catch(SQLException e){
+
+            System.out.println(
+                    "Erro ao listar restaurantes."
+            );
+
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
 }
+
