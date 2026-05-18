@@ -107,5 +107,105 @@ public class RestauranteDAO {
 
         return lista;
     }
-}
 
+    public Restaurante findById(Integer id){
+
+        String sql =
+                "SELECT * FROM restaurante " +
+                        "WHERE id = ?";
+
+        try(
+                Connection conn = DB.getConnection();
+
+                PreparedStatement ps =
+                        conn.prepareStatement(sql)
+        ){
+
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()){
+
+                Restaurante restaurante =
+                        new Restaurante();
+
+                restaurante.setId(
+                        rs.getInt("id")
+                );
+
+                restaurante.setNome(
+                        rs.getString("nome")
+                );
+
+                restaurante.setEndereco(
+                        rs.getString("endereco")
+                );
+
+                restaurante.setCnpj(
+                        rs.getString("cnpj")
+                );
+
+                restaurante.setTelefone(
+                        rs.getString("telefone")
+                );
+
+                restaurante.setCategoria(
+                        rs.getString("categoria")
+                );
+
+                return restaurante;
+            }
+
+        }
+        catch(SQLException e){
+
+            System.out.println(
+                    "Erro ao buscar restaurante."
+            );
+        }
+
+        return null;
+    }
+
+    public void deleteById(Integer id){
+
+        String sql =
+                "DELETE FROM restaurante " +
+                        "WHERE id = ?";
+
+        try(
+                Connection conn = DB.getConnection();
+
+                PreparedStatement ps =
+                        conn.prepareStatement(sql)
+        ){
+
+            ps.setInt(1, id);
+
+            int linhasAfetadas =
+                    ps.executeUpdate();
+
+            if(linhasAfetadas > 0){
+
+                System.out.println(
+                        "Restaurante removido com sucesso."
+                );
+            }
+            else{
+
+                System.out.println(
+                        "Restaurante não encontrado."
+                );
+            }
+
+        }
+        catch(SQLException e){
+
+            System.out.println(
+                    "Erro ao remover restaurante: "
+                            + e.getMessage()
+            );
+        }
+    }
+}
